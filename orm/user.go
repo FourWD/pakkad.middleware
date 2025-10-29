@@ -5,7 +5,7 @@ import (
 )
 
 type User struct {
-	ID            string `json:"id" query:"id" gorm:"type:varchar(36);primary_key"`
+	ID            string `json:"id" query:"id" gorm:"type:varchar(20);primary_key"`
 	DiscordUserID string `json:"discord_user_id" query:"discord_user_id" gorm:"type:varchar(20);unique;"`
 	model.GormModel
 
