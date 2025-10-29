@@ -14,7 +14,7 @@ type LogUserDiscordJoinChannel struct {
 	BeforeChannelID   string `gorm:"-"`
 	BeforeChannelName string `gorm:"-"`
 
-	LoginDate  time.Time `json:"login_date" query:"login_date" gorm:"default:null;type:datetime;"`
-	LogoutDate time.Time `json:"logout_date" query:"logout_date" gorm:"default:null;type:datetime;"`
-	IsLogout   bool      `json:"is_logout" query:"is_logout" gorm:"type:bool"`
+	LoginDate  *time.Time `json:"login_date" query:"login_date" gorm:"default:null;type:datetime;"`
+	LogoutDate *time.Time `json:"logout_date" query:"logout_date" gorm:"default:null;type:datetime;"`
+	IsLogout   bool       `json:"is_logout" query:"is_logout" gorm:"type:bool"`
 }

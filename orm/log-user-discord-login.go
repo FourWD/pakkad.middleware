@@ -10,8 +10,8 @@ type LogUserDiscordLogin struct {
 	UserID   string `json:"user_id" query:"user_id" gorm:"type:varchar(20);index;"`
 	Username string `gorm:"-"`
 
-	LoginDate     time.Time `json:"login_date" query:"login_date" gorm:"default:null;type:datetime;"`
-	LogoutDate    time.Time `json:"logout_date" query:"logout_date" gorm:"default:null;type:datetime;"`
+	LoginDate     *time.Time `json:"login_date" query:"login_date" gorm:"default:null;type:datetime;"`
+	LogoutDate    *time.Time `json:"logout_date" query:"logout_date" gorm:"default:null;type:datetime;"`
 	CurrentStatus string    `gorm:"-"`
 }
 
