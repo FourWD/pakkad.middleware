@@ -6,9 +6,9 @@ import (
 )
 
 type LogUserDiscordLogin struct {
-	ID            string `json:"id" query:"id" gorm:"type:varchar(36);primary_key;"`
-	DiscordUserID string `json:"discord_user_id" query:"discord_user_id" gorm:"type:varchar(20);index;"`
-	Username      string `gorm:"-"`
+	ID       string `json:"id" query:"id" gorm:"type:varchar(36);primary_key;"`
+	UserID   string `json:"user_id" query:"user_id" gorm:"type:varchar(20);index;"`
+	Username string `gorm:"-"`
 
 	LoginDate     time.Time `json:"login_date" query:"login_date" gorm:"default:null;type:datetime;"`
 	LogoutDate    time.Time `json:"logout_date" query:"logout_date" gorm:"default:null;type:datetime;"`
