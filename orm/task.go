@@ -18,4 +18,5 @@ type Task struct {
 	Subject        string     `json:"subject" query:"subject" gorm:"type:text"`
 	SprintID       string     `json:"sprint_id" query:"sprint_id" gorm:"type:varchar(4)"`
 	DueDate        *time.Time `json:"due_date" query:"due_date" gorm:"type:datetime"`
+	DoneDate       *time.Time `json:"done_date" query:"done_date" gorm:"type:datetime"`
 }
