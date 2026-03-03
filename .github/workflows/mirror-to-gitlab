@@ -18,10 +18,12 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Mirror-clone from GitHub into a bare repo (no checked-out branch)
+          rm -rf repo.git
+
+          # clone แบบ mirror (bare) => ไม่มี branch ที่ checkout อยู่
           git clone --mirror "https://github.com/${GH_REPO}.git" repo.git
           cd repo.git
 
-          # Push mirror to GitLab
+          # push mirror ไป GitLab
           TARGET="${GITLAB_REPO/https:\/\//https:\/\/oauth2:${GITLAB_TOKEN}@}"
           git push --mirror "$TARGET"
