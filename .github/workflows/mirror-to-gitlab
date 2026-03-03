@@ -10,23 +10,18 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout (full)
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Push mirror to GitLab
+      - name: Mirror clone and push
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
           GITLAB_REPO:  ${{ secrets.GITLAB_REPO }}
+          GH_REPO:      ${{ github.repository }}
         run: |
           set -euo pipefail
 
-          # Ensure we have all refs/tags
-          git remote -v
-          git fetch --prune --tags origin "+refs/*:refs/*"
+          # Mirror-clone from GitHub into a bare repo (no checked-out branch)
+          git clone --mirror "https://github.com/${GH_REPO}.git" repo.git
+          cd repo.git
 
-          # Push EVERYTHING (branches, tags, refs) to GitLab
-          # Embed token at runtime (avoid storing in repo)
+          # Push mirror to GitLab
           TARGET="${GITLAB_REPO/https:\/\//https:\/\/oauth2:${GITLAB_TOKEN}@}"
           git push --mirror "$TARGET"
