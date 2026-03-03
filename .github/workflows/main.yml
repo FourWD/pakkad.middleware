@@ -1,0 +1,32 @@
+name: Mirror to GitLab
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["**"]
+  delete:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push mirror to GitLab
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          GITLAB_REPO:  ${{ secrets.GITLAB_REPO }}
+        run: |
+          set -euo pipefail
+
+          # Ensure we have all refs/tags
+          git remote -v
+          git fetch --prune --tags origin "+refs/*:refs/*"
+
+          # Push EVERYTHING (branches, tags, refs) to GitLab
+          # Embed token at runtime (avoid storing in repo)
+          TARGET="${GITLAB_REPO/https:\/\//https:\/\/oauth2:${GITLAB_TOKEN}@}"
+          git push --mirror "$TARGET"
